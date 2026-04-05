@@ -20,7 +20,7 @@ const FAQS = [
   },
   {
     question: "Is the 15-minute delivery guaranteed?",
-    answer: "For most areas in Ilorin Central, yes! Pharma-E has a dedicated network of riders stationed at key hubs to ensure your medication reaches your doorstep faster than a pizza delivery."
+    answer: "For most areas in Ilorin Central, yes! Pharma-E has a dedicated network of riders stationed at key hubs to ensure your medication reaches your doorstep faster than a food delivery."
   },
   {
     question: "How do I know the medicine is authentic?",
