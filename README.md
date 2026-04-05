@@ -1,6 +1,6 @@
-# GoPharma - Verified Healthcare at Your Fingertips
+# Pharma-E - Verified Healthcare at Your Fingertips
 
-GoPharma is a modern, AI-driven healthcare ecosystem designed to solve the "Broken System" of medicine procurement in Ilorin, Kwara State. By bridging the gap between local manufacturers, licensed pharmacies, and patients, we ensure authentic medication is accessible in seconds and delivered in minutes.
+Pharma-E is a modern, AI-driven healthcare ecosystem designed to solve the "Broken System" of medicine procurement in Ilorin, Kwara State. By bridging the gap between local manufacturers, licensed pharmacies, and patients, we ensure authentic medication is accessible in seconds and delivered in minutes.
 
 ## 🚀 The Problem We Solve
 In many regions, patients face:
@@ -10,7 +10,7 @@ In many regions, patients face:
 * **Inefficiency**: Hours wasted in queues for basic healthcare needs.
 
 ## ✨ Our Solutions
-GoPharma provides a three-way fulfillment model designed for maximum user-friendliness:
+Pharma-E provides a three-way fulfillment model designed for maximum user-friendliness:
 
 * **Find in Seconds**: A powerful search engine with Voice and Image recognition to scan live inventory across verified pharmacies in Ilorin (Tanke, GRA, Basin, etc.).
 * **QR Pre-Order**: Secure your medication online and receive a unique QR Code. Walk into the pharmacy, scan, and collect instantly—no more queues.
@@ -64,7 +64,7 @@ npm run dev
 Open http://localhost:3000 to see the result.
 
 ## 🌍 Impact
-GoPharma isn't just an app; it's a "Go-To" health assistant for:
+Pharma-E isn't just an app; it's a "Go-To" health assistant for:
 
 * Students in Tanke needing fast, affordable medication.
 * Families in GRA requiring verified, high-trust healthcare.
