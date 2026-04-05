@@ -40,7 +40,7 @@ export default function Landing() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [faqSearch, setFaqSearch] = useState("");
 
-  const filteredFaqs = FAQS.filter(faq => 
+  const filteredFaqs = FAQS.filter(faq =>
     faq.question.toLowerCase().includes(faqSearch.toLowerCase()) ||
     faq.answer.toLowerCase().includes(faqSearch.toLowerCase())
   );
@@ -61,10 +61,10 @@ export default function Landing() {
             <a href="#locations" className="text-sm font-medium text-slate-600 hover:text-emerald-600">Locations</a>
             <Link to="/auth" className="flex items-center gap-2 rounded-full bg-slate-900 px-5 py-2.5 text-sm font-bold text-white transition-all hover:bg-slate-800 hover:scale-105">
               <svg className="w-4 h-4" viewBox="0 0 24 24">
-                <path fill="currentColor" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
-                <path fill="currentColor" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
-                <path fill="currentColor" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z"/>
-                <path fill="currentColor" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+                <path fill="currentColor" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" />
+                <path fill="currentColor" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" />
+                <path fill="currentColor" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" />
+                <path fill="currentColor" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" />
               </svg>
               Sign in with Google
             </Link>
@@ -76,7 +76,7 @@ export default function Landing() {
       <section className="relative overflow-hidden pt-20 pb-32 lg:pt-32">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center lg:text-left">
           <div className="grid items-center gap-12 lg:grid-cols-2">
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6 }}
@@ -85,7 +85,7 @@ export default function Landing() {
                 Now serving Ilorin
               </div>
               <h1 className="text-5xl font-extrabold tracking-tight text-slate-900 sm:text-6xl">
-                Order authentic medication from <span className="text-emerald-600">trusted pharmacies</span> in Ilorin.
+                Order authentic medication from <span className="text-emerald-600">trusted pharmacies</span> in Nigeria.
               </h1>
               <p className="mt-6 text-lg leading-8 text-slate-600">
                 The gateway to verified healthcare. Bridging the gap between manufacturers and your doorstep.
@@ -110,7 +110,7 @@ export default function Landing() {
                 <span>Joined by 500+ residents in Ilorin</span>
               </div>
             </motion.div>
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.6, delay: 0.2 }}
@@ -133,7 +133,7 @@ export default function Landing() {
             <h2 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">A Broken System That's Failing Ilorin</h2>
             <p className="mt-4 text-lg text-slate-600">Traditional medicine sourcing is slow, unreliable, and expensive.</p>
           </div>
-          
+
           <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
             {[
               { title: "Endless Queues", icon: <Clock className="text-emerald-600" size={24} />, desc: "Waiting hours at pharmacies only to find out they don't have what you need." },
@@ -143,7 +143,7 @@ export default function Landing() {
               { title: "Unexpected Costs", icon: <DollarSign className="text-emerald-600" size={24} />, desc: "Price gouging and hidden fees due to a lack of market transparency." },
               { title: "Trust Issues", icon: <ShieldCheck className="text-emerald-600" size={24} />, desc: "Counterfeit drugs and unverified sources put lives at risk every day." }
             ].map((item, idx) => (
-              <motion.div 
+              <motion.div
                 key={idx}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -163,7 +163,7 @@ export default function Landing() {
           {/* The Bridge - WhatsApp Bubble */}
           <div className="mt-20 flex flex-col items-center">
             <div className="mb-8 h-px w-24 bg-slate-200"></div>
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, scale: 0.95 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
@@ -218,7 +218,7 @@ export default function Landing() {
                   desc: "Our professional rider network delivers your verified medication directly to your designated location in under 30 minutes. Real-time tracking included."
                 }
               ].map((step, idx) => (
-                <motion.div 
+                <motion.div
                   key={step.id}
                   initial={{ opacity: 0, x: -20 }}
                   whileInView={{ opacity: 1, x: 0 }}
@@ -230,11 +230,11 @@ export default function Landing() {
                   {idx !== 2 && (
                     <div className="absolute left-6 top-12 h-full w-px bg-slate-200"></div>
                   )}
-                  
+
                   <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-emerald-600 text-white shadow-lg shadow-emerald-200">
                     {step.icon}
                   </div>
-                  
+
                   <div>
                     <h3 className="text-xl font-bold text-slate-900">{step.title}</h3>
                     <p className="mt-2 text-slate-600 leading-relaxed">
@@ -246,7 +246,7 @@ export default function Landing() {
             </div>
 
             {/* Right Side: Mobile Mockup */}
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, scale: 0.9 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
@@ -284,9 +284,9 @@ export default function Landing() {
                       <div className="ml-auto max-w-[80%] rounded-lg bg-[#dcf8c6] p-2 text-[11px] shadow-sm">
                         Found at Peace Standard Pharmacy (₦4,000). Would you like to order?
                       </div>
-                      
+
                       {/* QR Code Mockup */}
-                      <motion.div 
+                      <motion.div
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 1 }}
@@ -382,10 +382,10 @@ export default function Landing() {
                 ))}
               </div>
             </div>
-            
+
             <div className="flex flex-col sm:flex-row gap-6 w-full lg:w-auto">
               {/* 15 min Card */}
-              <motion.div 
+              <motion.div
                 whileHover={{ scale: 1.05 }}
                 className="flex-1 rounded-[2.5rem] bg-gradient-to-br from-emerald-500 to-emerald-600 p-10 text-white shadow-2xl shadow-emerald-200 lg:w-64"
               >
@@ -399,7 +399,7 @@ export default function Landing() {
               </motion.div>
 
               {/* 100% Verified Card */}
-              <motion.div 
+              <motion.div
                 whileHover={{ scale: 1.05 }}
                 className="flex-1 rounded-[2.5rem] bg-slate-900 p-10 text-white shadow-2xl shadow-slate-200 lg:w-64"
               >
@@ -413,7 +413,7 @@ export default function Landing() {
           </div>
 
           {/* Auth CTA */}
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -421,15 +421,15 @@ export default function Landing() {
           >
             <h3 className="text-2xl font-bold text-slate-900">Ready for 15-minute delivery?</h3>
             <p className="mt-2 text-slate-600 mb-8">Join thousands of Ilorin residents getting their meds faster than ever.</p>
-            <Link 
-              to="/auth" 
+            <Link
+              to="/auth"
               className="flex items-center gap-3 rounded-full bg-white px-8 py-4 text-lg font-bold text-slate-900 shadow-xl shadow-slate-200 transition-all hover:scale-105 active:scale-95 border border-slate-100"
             >
               <svg className="w-5 h-5" viewBox="0 0 24 24">
-                <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
-                <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
-                <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z"/>
-                <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+                <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" />
+                <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" />
+                <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" />
+                <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" />
               </svg>
               Sign in with Google to get started
             </Link>
@@ -450,9 +450,9 @@ export default function Landing() {
             <div className="absolute inset-y-0 left-4 flex items-center pointer-events-none text-slate-400">
               <Search size={20} />
             </div>
-            <input 
-              type="text" 
-              placeholder="Search FAQs..." 
+            <input
+              type="text"
+              placeholder="Search FAQs..."
               className="w-full rounded-2xl border border-slate-100 bg-slate-50 py-4 pl-12 pr-4 text-lg outline-none focus:ring-2 focus:ring-emerald-500/20 transition-all"
               value={faqSearch}
               onChange={(e) => setFaqSearch(e.target.value)}
@@ -462,19 +462,17 @@ export default function Landing() {
           {/* Accordion */}
           <div className="space-y-4">
             {filteredFaqs.map((faq, idx) => (
-              <div 
-                key={idx} 
-                className={`overflow-hidden rounded-2xl border transition-all ${
-                  openFaq === idx 
-                    ? 'border-emerald-100 bg-emerald-50/30' 
+              <div
+                key={idx}
+                className={`overflow-hidden rounded-2xl border transition-all ${openFaq === idx
+                    ? 'border-emerald-100 bg-emerald-50/30'
                     : 'border-slate-50 bg-white'
-                }`}
-              >
-                <button 
-                  onClick={() => setOpenFaq(openFaq === idx ? null : idx)}
-                  className={`flex w-full items-center justify-between p-6 text-left transition-all ${
-                    openFaq === idx ? 'border-l-4 border-emerald-600' : ''
                   }`}
+              >
+                <button
+                  onClick={() => setOpenFaq(openFaq === idx ? null : idx)}
+                  className={`flex w-full items-center justify-between p-6 text-left transition-all ${openFaq === idx ? 'border-l-4 border-emerald-600' : ''
+                    }`}
                 >
                   <span className={`text-lg font-bold ${openFaq === idx ? 'text-emerald-900' : 'text-slate-900'}`}>
                     {faq.question}
@@ -483,10 +481,10 @@ export default function Landing() {
                     <ChevronDown size={20} />
                   </div>
                 </button>
-                
+
                 <AnimatePresence>
                   {openFaq === idx && (
-                    <motion.div 
+                    <motion.div
                       initial={{ height: 0, opacity: 0 }}
                       animate={{ height: 'auto', opacity: 1 }}
                       exit={{ height: 0, opacity: 0 }}
@@ -511,9 +509,9 @@ export default function Landing() {
           {/* FAQ CTA */}
           <div className="mt-16 flex flex-col items-center justify-center rounded-3xl bg-slate-50 p-10 text-center border border-slate-100">
             <p className="text-lg font-medium text-slate-800 mb-6">Still confused? Chat with our Pharmacist on WhatsApp</p>
-            <a 
-              href="https://wa.me/yournumber" 
-              target="_blank" 
+            <a
+              href="https://wa.me/yournumber"
+              target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-3 rounded-full bg-[#25D366] px-8 py-4 text-lg font-bold text-white shadow-xl shadow-emerald-200 transition-all hover:scale-105 active:scale-95"
             >
