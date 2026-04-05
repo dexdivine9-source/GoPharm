@@ -529,7 +529,7 @@ export default function Landing() {
             <Activity className="text-emerald-600" size={24} />
             <span className="text-2xl font-black tracking-tighter text-slate-900 font-sans">Pharma-E</span>
           </div>
-          <p className="text-slate-600 font-medium mb-2">The gateway to verified healthcare. Find It, Verify It, Buy It.</p>
+          <p className="text-slate-600 font-medium mb-2">Pharma-E - If it's not verified, it's not here. The smart way to get medicine.</p>
           <p className="text-slate-500 text-sm">© 2026 Pharma-E Ilorin. All rights reserved.</p>
         </div>
       </footer>
