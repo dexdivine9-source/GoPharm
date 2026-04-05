@@ -8,7 +8,7 @@ import { motion, AnimatePresence } from 'motion/react';
 const FAQS = [
   {
     question: "What is Pharma-E?",
-    answer: "We are Ilorin’s first AI-powered pharmacy network that connects you directly to verified local pharmacies and manufacturers to ensure you get authentic medicine in minutes."
+    answer: "Nigeria's first AI-powered pharmacy network, connecting users to verified pharmacies and manufacturers to discover and buy authentic medicines instantly."
   },
   {
     question: "How does the \"Find in Seconds\" search work?",
