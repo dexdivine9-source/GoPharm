@@ -372,7 +372,7 @@ export default function Landing() {
                 We've mapped out the city to ensure the fastest delivery times possible. From Tanke to Challenge, we've got you covered.
               </p>
               <div className="mt-10 grid grid-cols-2 gap-6">
-                {['Tanke', 'GRA', 'Basin', 'Ilorin Central', 'Adewole', 'Challenge', 'Post Office', 'Fate', 'Sabgo', 'Offa Garage', 'Ganmo', 'Gaa-kanbi'].map((loc) => (
+                {['Tanke', 'GRA', 'Basin', 'Ilorin Central', 'Adewole', 'Challenge', 'Post Office', 'Fate', 'Sango', 'Offa Garage', 'Ganmo', 'Gaa-kanbi'].map((loc) => (
                   <div key={loc} className="flex items-center gap-3 text-slate-700 group">
                     <div className="flex h-8 w-8 items-center justify-center rounded-full bg-emerald-50 text-emerald-600 transition-colors group-hover:bg-emerald-600 group-hover:text-white">
                       <MapPin size={16} />
