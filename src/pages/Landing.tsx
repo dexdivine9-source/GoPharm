@@ -24,7 +24,7 @@ const FAQS = [
   },
   {
     question: "How do I know the medicine is authentic?",
-    answer: "We only partner with PCN-licensed pharmacies and top Ilorin manufacturers. Every order comes with a Pharma-E \"Verified\" seal to ensure it hasn't been tampered with."
+    answer: "We only partner with PCN-licensed pharmacies and top Ilorin manufacturers. Every order comes with a Pharma-E \"Verified\" seal to ensure it hasn't been tampered with or Check the Authenticity of the drug through NAFDAC verification code (MAS)."
   },
   {
     question: "Do I need to create an account to order?",
