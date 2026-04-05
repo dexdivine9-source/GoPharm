@@ -101,7 +101,7 @@ export default function CustomerDemo() {
           </div>
           <div>
             <h1 className="text-base font-bold leading-tight flex items-center gap-1">
-              GoPharma AI Assistant
+              Pharma-E AI Assistant
             </h1>
             <p className="text-[11px] text-white/80">Online</p>
           </div>

@@ -40,7 +40,7 @@ export default function PharmacyDemo() {
           <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-emerald-600 text-white">
             <Package size={18} />
           </div>
-          <span className="text-lg font-bold tracking-tight">GoPharma</span>
+          <span className="text-lg font-bold tracking-tight">Pharma-E</span>
         </div>
         
         <nav className="flex-1 space-y-1 px-3 py-4">

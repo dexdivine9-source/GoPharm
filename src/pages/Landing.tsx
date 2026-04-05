@@ -7,32 +7,32 @@ import { motion, AnimatePresence } from 'motion/react';
 
 const FAQS = [
   {
-    question: "What is GoPharma?",
+    question: "What is Pharma-E?",
     answer: "We are Ilorin’s first AI-powered pharmacy network that connects you directly to verified local pharmacies and manufacturers to ensure you get authentic medicine in minutes."
   },
   {
     question: "How does the \"Find in Seconds\" search work?",
-    answer: "Our AI scans the live inventory of verified pharmacies in your specific area (like Tanke, GRA, or Challenge). No more walking from store to store; if GoPharma says it's there, it’s there."
+    answer: "Our AI scans the live inventory of verified pharmacies in your specific area (like Tanke, GRA, or Challenge). No more walking from store to store; if Pharma-E says it's there, it’s there."
   },
   {
     question: "How do I use the QR Code for Pre-orders?",
-    answer: "When you select \"Pre-order for Pickup,\" we alert the pharmacy to pack your meds immediately. You get a secure GoPharma QR code on your dashboard or WhatsApp—just show it at the counter to collect your drugs without waiting in line."
+    answer: "When you select \"Pre-order for Pickup,\" we alert the pharmacy to pack your meds immediately. You get a secure Pharma-E QR code on your dashboard or WhatsApp—just show it at the counter to collect your drugs without waiting in line."
   },
   {
     question: "Is the 15-minute delivery guaranteed?",
-    answer: "For most areas in Ilorin Central, yes! GoPharma has a dedicated network of riders stationed at key hubs to ensure your medication reaches your doorstep faster than a pizza delivery."
+    answer: "For most areas in Ilorin Central, yes! Pharma-E has a dedicated network of riders stationed at key hubs to ensure your medication reaches your doorstep faster than a pizza delivery."
   },
   {
     question: "How do I know the medicine is authentic?",
-    answer: "We only partner with PCN-licensed pharmacies and top Ilorin manufacturers. Every order comes with a GoPharma \"Verified\" seal to ensure it hasn't been tampered with."
+    answer: "We only partner with PCN-licensed pharmacies and top Ilorin manufacturers. Every order comes with a Pharma-E \"Verified\" seal to ensure it hasn't been tampered with."
   },
   {
     question: "Do I need to create an account to order?",
-    answer: "To ensure your health records and QR codes are secure, GoPharma requires a quick one-tap sign-in with Google or Apple. It takes less than 3 seconds!"
+    answer: "To ensure your health records and QR codes are secure, Pharma-E requires a quick one-tap sign-in with Google or Apple. It takes less than 3 seconds!"
   },
   {
     question: "Can I order via WhatsApp?",
-    answer: "Absolutely! Our GoPharma AI bot can handle your orders, voice notes, and prescription photos directly on WhatsApp if you prefer not to use the website."
+    answer: "Absolutely! Our Pharma-E AI bot can handle your orders, voice notes, and prescription photos directly on WhatsApp if you prefer not to use the website."
   }
 ];
 
@@ -54,7 +54,7 @@ export default function Landing() {
             <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-600 text-white shadow-lg shadow-emerald-200">
               <Activity size={24} />
             </div>
-            <span className="text-2xl font-black tracking-tighter text-slate-900 font-sans">GoPharma</span>
+            <span className="text-2xl font-black tracking-tighter text-slate-900 font-sans">Pharma-E</span>
           </div>
           <div className="hidden items-center gap-8 md:flex">
             <a href="#features" className="text-sm font-medium text-slate-600 hover:text-emerald-600">Features</a>
@@ -178,7 +178,7 @@ export default function Landing() {
               <div className="mt-6 flex items-center gap-3">
                 <div className="h-10 w-10 rounded-full bg-emerald-600 flex items-center justify-center text-white font-bold">GP</div>
                 <div>
-                  <p className="text-sm font-bold text-slate-900">GoPharma Bridge</p>
+                  <p className="text-sm font-bold text-slate-900">Pharma-E Bridge</p>
                   <p className="text-xs text-emerald-600 font-medium">Connecting Ilorin to Health</p>
                 </div>
               </div>
@@ -191,7 +191,7 @@ export default function Landing() {
       <section className="bg-slate-50 py-24 overflow-hidden">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="mb-16 text-center lg:text-left">
-            <h2 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">How GoPharma Works</h2>
+            <h2 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">How Pharma-E Works</h2>
             <p className="mt-4 text-lg text-slate-600">From search to delivery, we've simplified healthcare for you.</p>
           </div>
 
@@ -271,7 +271,7 @@ export default function Landing() {
                     <div className="flex items-center gap-3 bg-[#075e54] p-3 text-white">
                       <div className="h-8 w-8 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-700 font-bold text-xs">GP</div>
                       <div>
-                        <p className="text-xs font-bold">GoPharma AI</p>
+                        <p className="text-xs font-bold">Pharma-E AI</p>
                         <p className="text-[10px] opacity-80">Online</p>
                       </div>
                     </div>
@@ -292,7 +292,7 @@ export default function Landing() {
                         transition={{ delay: 1 }}
                         className="ml-auto max-w-[80%] rounded-lg bg-[#dcf8c6] p-3 shadow-sm"
                       >
-                        <p className="mb-2 text-[10px] font-bold text-slate-900">Order Confirmed! Your GoPharma QR Code is ready for instant pickup.</p>
+                        <p className="mb-2 text-[10px] font-bold text-slate-900">Order Confirmed! Your Pharma-E QR Code is ready for instant pickup.</p>
                         <div className="aspect-square w-full rounded-lg bg-white p-2 flex items-center justify-center">
                           <QrCode size={80} className="text-slate-900" />
                         </div>
@@ -442,7 +442,7 @@ export default function Landing() {
         <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
           <div className="mb-16 text-center">
             <h2 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">Frequently Asked Questions</h2>
-            <p className="mt-4 text-lg text-slate-600">Everything you need to know about GoPharma.</p>
+            <p className="mt-4 text-lg text-slate-600">Everything you need to know about Pharma-E.</p>
           </div>
 
           {/* FAQ Search */}
@@ -527,10 +527,10 @@ export default function Landing() {
         <div className="mx-auto max-w-7xl px-4 text-center sm:px-6 lg:px-8">
           <div className="flex items-center justify-center gap-2 mb-6">
             <Activity className="text-emerald-600" size={24} />
-            <span className="text-2xl font-black tracking-tighter text-slate-900 font-sans">GoPharma</span>
+            <span className="text-2xl font-black tracking-tighter text-slate-900 font-sans">Pharma-E</span>
           </div>
-          <p className="text-slate-600 font-medium mb-2">GoPharma - Bridging the gap between manufacturers and your doorstep in Ilorin.</p>
-          <p className="text-slate-500 text-sm">© 2026 GoPharma Ilorin. All rights reserved.</p>
+          <p className="text-slate-600 font-medium mb-2">Pharma-E - Bridging the gap between manufacturers and your doorstep in Ilorin.</p>
+          <p className="text-slate-500 text-sm">© 2026 Pharma-E Ilorin. All rights reserved.</p>
         </div>
       </footer>
     </div>

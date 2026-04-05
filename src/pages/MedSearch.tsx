@@ -82,7 +82,7 @@ export default function MedSearch() {
             <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-600 text-white shadow-lg shadow-emerald-200">
               <Activity size={24} />
             </div>
-            <span className="text-2xl font-black tracking-tighter text-slate-900 font-sans">GoPharma</span>
+            <span className="text-2xl font-black tracking-tighter text-slate-900 font-sans">Pharma-E</span>
           </Link>
           <div className="flex items-center gap-4">
             <Link to="/auth" className="hidden sm:flex items-center gap-2 rounded-full bg-slate-900 px-5 py-2 text-sm font-bold text-white transition-all hover:bg-slate-800 hover:scale-105">
@@ -109,7 +109,7 @@ export default function MedSearch() {
             animate={{ opacity: 1, y: 0 }}
             className="text-4xl font-extrabold tracking-tight text-slate-900 sm:text-5xl lg:text-6xl"
           >
-            GoPharma: Find Your Medicine <span className="text-emerald-600">in Seconds.</span>
+            Pharma-E: Find Your Medicine <span className="text-emerald-600">in Seconds.</span>
           </motion.h1>
           <p className="mt-6 text-lg text-slate-600">
             Search across verified pharmacies in Ilorin. Real-time stock, prices, and fast delivery.
@@ -249,11 +249,11 @@ export default function MedSearch() {
         </AnimatePresence>
       </section>
 
-      {/* The GoPharma Advantage Section */}
+      {/* The Pharma-E Advantage Section */}
       <section className="bg-slate-900 py-24 text-white">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="mb-16 text-center">
-            <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">The GoPharma Advantage</h2>
+            <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">The Pharma-E Advantage</h2>
             <p className="mt-4 text-lg text-slate-400">A seamless, tech-driven approach to healthcare in Ilorin.</p>
           </div>
 

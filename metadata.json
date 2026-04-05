@@ -1,6 +1,6 @@
 {
-  "name": "GoPharma Ilorin",
-  "description": "GoPharma - Bridging the gap between manufacturers and your doorstep in Nigeria.",
+  "name": "Pharma-E Ilorin",
+  "description": "Pharma-E - Bridging the gap between manufacturers and your doorstep in Nigeria.",
   "requestFramePermissions": [
     "geolocation"
   ]

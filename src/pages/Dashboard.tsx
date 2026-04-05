@@ -24,7 +24,7 @@ export default function Dashboard() {
             <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-600 text-white shadow-lg shadow-emerald-200">
               <Activity size={24} />
             </div>
-            <span className="text-2xl font-black tracking-tighter text-slate-900 font-sans">GoPharma</span>
+            <span className="text-2xl font-black tracking-tighter text-slate-900 font-sans">Pharma-E</span>
           </Link>
           
           <div className="flex items-center gap-4">

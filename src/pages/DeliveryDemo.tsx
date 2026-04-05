@@ -142,7 +142,7 @@ export default function DeliveryDemo() {
                 <CheckCircle2 size={48} />
               </div>
               <h2 className="text-3xl font-extrabold tracking-tight text-slate-900">Delivered Successfully</h2>
-              <p className="mt-2 text-slate-500 font-medium">Your health is our priority. Thank you for choosing GoPharma!</p>
+              <p className="mt-2 text-slate-500 font-medium">Your health is our priority. Thank you for choosing Pharma-E!</p>
               <div className="mt-8 flex justify-center gap-4">
                 <button 
                   onClick={() => setShowProof(true)}
@@ -246,7 +246,7 @@ export default function DeliveryDemo() {
                   <ShieldCheck className="text-emerald-600" size={24} />
                   <div>
                     <p className="text-xs font-bold text-emerald-800 uppercase">Tamper-Proof Seal Intact</p>
-                    <p className="text-[10px] text-emerald-600">Verified by GoPharma Ilorin</p>
+                    <p className="text-[10px] text-emerald-600">Verified by Pharma-E Ilorin</p>
                   </div>
                 </div>
               </div>
