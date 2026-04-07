@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { 
   Search, 
   Mic, 
@@ -8,53 +8,32 @@ import {
   ArrowLeft, 
   ArrowRight,
   MapPin, 
-  Navigation, 
   ShieldCheck, 
   Clock, 
   Filter,
-  ChevronRight,
-  Star,
   Activity,
   QrCode,
-  Bike
+  Bike,
+  ShoppingCart,
+  Star,
+  Sparkles
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
-const PHARMACIES = [
-  {
-    id: 1,
-    name: "Peace Standard Pharmacy",
-    location: "Tanke, Ilorin",
-    distance: "0.8 km",
-    price: "₦4,000",
-    stock: "In Stock",
-    rating: 4.8,
-    image: "https://picsum.photos/seed/pharmacy1/400/300"
-  },
-  {
-    id: 2,
-    name: "Medsoft Pharmacy",
-    location: "GRA, Ilorin",
-    distance: "2.4 km",
-    price: "₦4,200",
-    stock: "In Stock",
-    rating: 4.9,
-    image: "https://picsum.photos/seed/pharmacy2/400/300"
-  },
-  {
-    id: 3,
-    name: "Basin Central Pharmacy",
-    location: "Basin, Ilorin",
-    distance: "4.1 km",
-    price: "₦3,850",
-    stock: "Limited Stock",
-    rating: 4.6,
-    image: "https://picsum.photos/seed/pharmacy3/400/300"
-  }
+export const partneredStores = [
+  { id: 1, name: "Fiolu Pharmacy Ltd", location: "GRA", distance: "0.8km", status: "Verified" },
+  { id: 2, name: "PS GENERAL DRUGS CENTRE", location: "Post Office", distance: "1.2km", status: "Verified" },
+  { id: 3, name: "Coby Pharmacy", location: "Tanke", distance: "1.5km", status: "Verified" },
+  { id: 4, name: "Bioraj Pharmacy", location: "Industrial Estate", distance: "4.0km", status: "Manufacturer" },
+  { id: 5, name: "Rotamedics Pharmacy", location: "Challenge", distance: "2.1km", status: "Verified" },
+  { id: 6, name: "Assamadiya Pharmacy", location: "Taiwo Isale", distance: "2.8km", status: "Verified" },
+  { id: 7, name: "Medsoft Pharmacy", location: "Basin", distance: "3.2km", status: "Verified" },
+  { id: 8, name: "Ason Pharmacy", location: "Adewole", distance: "3.5km", status: "Verified" },
 ];
 
 export default function MedSearch() {
+  const navigate = useNavigate();
   const [query, setQuery] = useState("");
   const [isSearching, setIsSearching] = useState(false);
   const [showResults, setShowResults] = useState(false);
@@ -74,7 +53,12 @@ export default function MedSearch() {
   };
 
   return (
-    <div className="min-h-screen bg-white font-sans text-slate-900">
+    <motion.div 
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0, x: '-20%' }}
+      className="min-h-screen bg-white font-sans text-slate-900"
+    >
       {/* Navigation */}
       <nav className="sticky top-0 z-50 border-b border-slate-100 bg-white/80 backdrop-blur-md">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
@@ -191,46 +175,80 @@ export default function MedSearch() {
                 </button>
               </div>
 
-              <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-                {PHARMACIES.map((pharmacy, idx) => (
+              <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+                {partneredStores.map((pharmacy, idx) => (
                   <motion.div 
                     key={pharmacy.id}
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: idx * 0.1 }}
-                    className="group overflow-hidden rounded-3xl border border-slate-100 bg-white shadow-sm transition-all hover:-translate-y-2 hover:shadow-xl"
+                    transition={{ delay: idx * 0.08 }}
+                    className="group relative flex flex-col overflow-hidden rounded-2xl border border-slate-100 bg-white shadow-sm transition-all hover:-translate-y-1 hover:shadow-lg"
                   >
-                    <div className="relative h-48">
-                      <img src={pharmacy.image} alt={pharmacy.name} className="h-full w-full object-cover transition-transform group-hover:scale-110" referrerPolicy="no-referrer" />
-                      <div className="absolute top-4 right-4 rounded-full bg-white/90 px-3 py-1 text-xs font-bold text-emerald-700 backdrop-blur-sm">
-                        {pharmacy.distance} away
+                    {/* Gold Manufacturer Banner */}
+                    {pharmacy.status === "Manufacturer" && (
+                      <div className="flex items-center justify-center gap-1.5 bg-gradient-to-r from-amber-400 via-yellow-400 to-amber-500 px-3 py-2 text-xs font-black text-amber-900 tracking-wide">
+                        <Sparkles size={12} className="shrink-0" />
+                        Direct from Manufacturer
+                        <Sparkles size={12} className="shrink-0" />
                       </div>
-                      <div className="absolute bottom-4 left-4 flex items-center gap-1 rounded-full bg-emerald-600 px-3 py-1 text-xs font-bold text-white">
-                        <ShieldCheck size={12} /> {pharmacy.stock}
+                    )}
+
+                    <div className="flex flex-1 flex-col p-5">
+                      {/* Top: Name + Distance */}
+                      <div className="mb-3 flex items-start justify-between gap-2">
+                        <h3 className="text-sm font-extrabold leading-tight text-slate-900">{pharmacy.name}</h3>
+                        <span className="shrink-0 rounded-full bg-slate-100 px-2.5 py-1 text-xs font-bold text-slate-600 whitespace-nowrap">
+                          {pharmacy.distance} away
+                        </span>
                       </div>
-                    </div>
-                    <div className="p-6">
-                      <div className="mb-2 flex items-center justify-between">
-                        <h3 className="text-lg font-bold text-slate-900">{pharmacy.name}</h3>
-                        <div className="flex items-center gap-1 text-amber-500">
-                          <Star size={14} fill="currentColor" />
-                          <span className="text-sm font-bold text-slate-700">{pharmacy.rating}</span>
-                        </div>
+
+                      {/* Location */}
+                      <div className="mb-3 flex items-center gap-1.5 text-sm text-slate-500">
+                        <MapPin size={13} className="shrink-0 text-emerald-500" />
+                        <span>{pharmacy.location}</span>
                       </div>
-                      <div className="mb-6 flex items-center gap-2 text-sm text-slate-500">
-                        <MapPin size={14} /> {pharmacy.location}
+
+                      {/* Verified Badge */}
+                      <div className="mb-5">
+                        {pharmacy.status === "Manufacturer" ? (
+                          <span className="inline-flex items-center gap-1 rounded-full border border-amber-300 bg-amber-50 px-2.5 py-1 text-xs font-bold text-amber-700">
+                            <Star size={11} fill="currentColor" /> Manufacturer
+                          </span>
+                        ) : (
+                          <span className="inline-flex items-center gap-1 rounded-full border border-emerald-200 bg-emerald-50 px-2.5 py-1 text-xs font-bold text-emerald-600">
+                            <ShieldCheck size={11} /> Verified
+                          </span>
+                        )}
                       </div>
-                      <div className="flex items-center justify-between border-t border-slate-50 pt-4">
-                        <div>
-                          <p className="text-xs font-bold text-slate-400 uppercase">Price</p>
-                          <p className="text-xl font-bold text-emerald-600">{pharmacy.price}</p>
-                        </div>
-                        <Link 
-                          to="/demo/customer"
-                          className="flex h-12 w-12 items-center justify-center rounded-full bg-slate-900 text-white shadow-lg transition-all hover:scale-110 active:scale-95"
+
+                      {/* Action Buttons */}
+                      <div className="mt-auto flex flex-col gap-2">
+                        <button
+                          onClick={() => navigate('/checkout', {
+                            state: {
+                              pharmacyName: pharmacy.name,
+                              medicineName: query || 'Insulin (Mixtard 30/70)',
+                              location: pharmacy.location,
+                              distance: pharmacy.distance,
+                            }
+                          })}
+                          className="flex w-full items-center justify-center gap-2 rounded-xl bg-emerald-600 px-4 py-2.5 text-xs font-bold text-white shadow-sm shadow-emerald-200 transition-all hover:bg-emerald-700 hover:scale-[1.02] active:scale-95"
                         >
-                          <ChevronRight size={24} />
-                        </Link>
+                          <ShoppingCart size={13} /> Buy Now
+                        </button>
+                        <button
+                          onClick={() => navigate('/pickup', {
+                            state: {
+                              pharmacyName: pharmacy.name,
+                              medicineName: query || 'Insulin (Mixtard 30/70)',
+                              location: pharmacy.location,
+                              distance: pharmacy.distance,
+                            }
+                          })}
+                          className="flex w-full items-center justify-center gap-2 rounded-xl border border-slate-200 bg-slate-50 px-4 py-2.5 text-xs font-bold text-slate-700 transition-all hover:bg-slate-100 hover:scale-[1.02] active:scale-95"
+                        >
+                          <QrCode size={13} /> Pre-order QR
+                        </button>
                       </div>
                     </div>
                   </motion.div>
@@ -321,6 +339,6 @@ export default function MedSearch() {
           </div>
         </div>
       </section>
-    </div>
+    </motion.div>
   );
 }
