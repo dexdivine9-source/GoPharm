@@ -50,7 +50,7 @@ export default function DeliveryDemo() {
       {/* Header */}
       <header className="flex h-16 items-center justify-between border-b border-slate-200 bg-white px-6">
         <div className="flex items-center gap-4">
-          <Link to="/demo/pharmacy" className="rounded-full p-2 hover:bg-slate-100 hover:scale-105 transition-transform">
+          <Link to="/dashboard" className="rounded-full p-2 hover:bg-slate-100 hover:scale-105 transition-transform">
             <ArrowLeft size={20} />
           </Link>
           <div>

@@ -47,7 +47,7 @@ export default function CustomerDashboard() {
       title: "Track My Rider",
       description: "Monitor your medication delivery in real-time. Average delivery time: 15 mins.",
       icon: <Bike className="w-8 h-8 text-orange-600" />,
-      link: "#",
+      link: "/track/GP-2026-1023",
       linkText: "View Active Deliveries",
       bgColor: "bg-orange-50",
     },

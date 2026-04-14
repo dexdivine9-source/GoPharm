@@ -115,7 +115,7 @@ export default function Dashboard() {
             transition={{ delay: 0.3 }}
           >
             <Link 
-              to="/demo/delivery"
+              to="/track/GP-2026-1023"
               className="group relative flex flex-col h-full overflow-hidden rounded-[2rem] bg-white p-8 shadow-xl shadow-emerald-100/50 border border-slate-100 transition-all hover:-translate-y-2 hover:shadow-2xl"
             >
               <div className="mb-8 flex h-20 w-20 items-center justify-center rounded-2xl bg-amber-50 text-amber-600 transition-colors group-hover:bg-amber-600 group-hover:text-white">
