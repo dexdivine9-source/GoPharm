@@ -35,6 +35,37 @@ export interface AvailableInventoryItem extends InventoryItem {
   pharmacy_name: string;
 }
 
+// ─── Scanner / NAFDAC Types ───────────────────────────────────────────────────
+
+export interface VerifiedBatch {
+  batch_code: string;
+  manufacturer: string;
+  drug_name: string;
+  expiry_date: string; // ISO date string
+  is_authentic: boolean;
+}
+
+export interface VerificationLog {
+  id: string;
+  user_id: string | null;
+  scanned_code: string;
+  is_authentic: boolean;
+  location_data?: { lat: number; lng: number };
+  created_at: number;
+}
+
+// Seeded NAFDAC batch registry (5 authentic + 2 counterfeit)
+const SEED_BATCHES: VerifiedBatch[] = [
+  { batch_code: 'BJ-2024-EMZ001', manufacturer: 'Emzor Pharmaceuticals', drug_name: 'Paracetamol 500mg', expiry_date: '2026-09-01', is_authentic: true },
+  { batch_code: 'BJ-2024-MAY002', manufacturer: 'May & Baker Nigeria', drug_name: 'Amoxicillin 250mg', expiry_date: '2027-03-15', is_authentic: true },
+  { batch_code: 'BJ-2025-BIO003', manufacturer: 'Bioraj Pharmaceuticals', drug_name: 'Metformin 500mg (Direct)', expiry_date: '2027-12-01', is_authentic: true },
+  { batch_code: 'BJ-2025-GSK004', manufacturer: 'GlaxoSmithKline Nigeria', drug_name: 'Augmentin 375mg', expiry_date: '2026-06-20', is_authentic: true },
+  { batch_code: 'BJ-2025-PFZ005', manufacturer: 'Pfizer Nigeria', drug_name: 'Zithromax (Azithromycin)', expiry_date: '2028-01-10', is_authentic: true },
+  // Known counterfeits — for demo / testing
+  { batch_code: 'FAKE-0000-XXX01', manufacturer: 'Unknown', drug_name: 'Counterfeit Drug A', expiry_date: '2020-01-01', is_authentic: false },
+  { batch_code: 'FAKE-0000-XXX02', manufacturer: 'Unknown', drug_name: 'Counterfeit Drug B', expiry_date: '2019-06-01', is_authentic: false },
+];
+
 interface MockDBContextType {
   currentUser: Profile | null;
   login: (email: string, fullName: string) => void;
@@ -58,6 +89,12 @@ interface MockDBContextType {
   getPharmacyOrders: () => Order[];
   createOrder: (pharmacy_id: string, med_name: string, qty: number, total_price: number) => void;
   updateOrderStatus: (order_id: string, status: OrderStatus) => void;
+
+  // Scanner / NAFDAC Methods
+  verifyBatchCode: (code: string) => Promise<VerifiedBatch | null>;
+  completeOrderByScan: (orderId: string) => Promise<boolean>;
+  logVerification: (code: string, isAuthentic: boolean) => void;
+  verificationLogs: VerificationLog[];
 }
 
 const MockDBContext = createContext<MockDBContextType | undefined>(undefined);
@@ -70,6 +107,7 @@ export function SupabaseMockProvider({ children }: { children: React.ReactNode }
   const [currentUserId, setCurrentUserId] = useState<string | null>(null);
   const [inventory, setInventory] = useState<InventoryItem[]>([]);
   const [orders, setOrders] = useState<Order[]>([]);
+  const [verificationLogs, setVerificationLogs] = useState<VerificationLog[]>([]);
 
   // Load from local storage to persist during dev
   useEffect(() => {
@@ -248,6 +286,45 @@ export function SupabaseMockProvider({ children }: { children: React.ReactNode }
     }));
   };
 
+  // ─── Scanner / NAFDAC Methods ──────────────────────────────────────────────
+
+  const verifyBatchCode = async (code: string): Promise<VerifiedBatch | null> => {
+    // Simulate 600–900ms network latency (real NAFDAC API call in production)
+    await new Promise(res => setTimeout(res, 600 + Math.random() * 300));
+    const normalised = code.trim().toUpperCase();
+    return SEED_BATCHES.find(b => b.batch_code.toUpperCase() === normalised) ?? null;
+  };
+
+  const completeOrderByScan = async (orderId: string): Promise<boolean> => {
+    await new Promise(res => setTimeout(res, 400));
+    let found = false;
+    setOrders(prev => prev.map(order => {
+      if (order.id === orderId && order.status !== 'COMPLETED') {
+        found = true;
+        // Simulate Supabase Broadcast — notify pharmacy dashboard via BroadcastChannel
+        try {
+          const bc = new BroadcastChannel('pharmae-orders');
+          bc.postMessage({ type: 'ORDER_COMPLETED', orderId });
+          bc.close();
+        } catch { /* BroadcastChannel unsupported in some envs */ }
+        return { ...order, status: 'COMPLETED' as OrderStatus };
+      }
+      return order;
+    }));
+    return found;
+  };
+
+  const logVerification = (code: string, isAuthentic: boolean) => {
+    const newLog: VerificationLog = {
+      id: Math.random().toString(36).substring(2, 12),
+      user_id: currentUserId,
+      scanned_code: code,
+      is_authentic: isAuthentic,
+      created_at: Date.now(),
+    };
+    setVerificationLogs(prev => [newLog, ...prev]);
+  };
+
   const updateOrderStatus = (order_id: string, status: OrderStatus) => {
     if (!currentUser || currentUser.role !== 'pharmacy') return;
     
@@ -288,7 +365,11 @@ export function SupabaseMockProvider({ children }: { children: React.ReactNode }
       getCustomerOrders,
       getPharmacyOrders,
       createOrder,
-      updateOrderStatus
+      updateOrderStatus,
+      verifyBatchCode,
+      completeOrderByScan,
+      logVerification,
+      verificationLogs,
     }}>
       {children}
     </MockDBContext.Provider>
