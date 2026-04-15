@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useSupabase } from '../lib/mock-db';
+import { supabase } from '../lib/supabase';
 import { useNavigate } from 'react-router-dom';
 import { Activity, AlertCircle, Mail, ArrowLeft, ShieldCheck, CheckCircle2 } from 'lucide-react';
 import SocialButtons from '../components/auth/SocialButtons';
@@ -65,25 +66,23 @@ export default function Login() {
     }, 1500);
   };
 
-  const handleSocialLogin = (provider: 'google' | 'apple') => {
+  const handleSocialLogin = async (provider: 'google' | 'apple') => {
     setError(null);
     setLoading(true);
 
-    setTimeout(() => {
-      let mockEmail = '';
-      let mockName = '';
-
-      if (provider === 'google') {
-        mockEmail = 'user-google@example.com';
-        mockName = 'Google Social User';
-      } else {
-        mockEmail = 'user-apple@example.com';
-        mockName = 'Apple Social User';
-      }
-
-      login(mockEmail, mockName);
-      navigate('/');
-    }, 1200);
+    try {
+      const { error } = await supabase.auth.signInWithOAuth({
+        provider,
+        options: {
+          redirectTo: `${window.location.origin}/auth/callback`
+        }
+      });
+      
+      if (error) throw error;
+    } catch (err: any) {
+      setError(err.message || `Could not authenticate with ${provider}`);
+      setLoading(false);
+    }
   };
 
   const handleOtpChange = (index: number, value: string) => {
