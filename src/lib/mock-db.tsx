@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
+import { supabase } from './supabase';
 
 export type Role = 'customer' | 'pharmacy';
 
@@ -173,6 +174,8 @@ export function SupabaseMockProvider({ children }: { children: React.ReactNode }
 
   const logout = () => {
     setCurrentUserId(null);
+    // Also clear the real Supabase session
+    supabase.auth.signOut().catch(() => {});
   };
 
   const setRole = (role: Role) => {

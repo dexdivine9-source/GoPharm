@@ -11,7 +11,6 @@ export default function Login() {
   const [isVerifying, setIsVerifying] = useState(false);
   const [email, setEmail] = useState('');
   const [fullName, setFullName] = useState('');
-  const [password, setPassword] = useState('');
   const [otp, setOtp] = useState(['', '', '', '', '', '']);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
@@ -19,51 +18,54 @@ export default function Login() {
   const { login, allProfiles } = useSupabase();
   const navigate = useNavigate();
 
-  const handleManualAuth = (e: React.FormEvent) => {
+  const handleManualAuth = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
     setLoading(true);
 
-    // Mock delay for "sending email"
-    setTimeout(() => {
-      // Mock Duplicate checking logic
-      const existingUser = allProfiles.find(p => p.email.toLowerCase() === email.toLowerCase());
+    try {
+      const { error } = await supabase.auth.signInWithOtp({
+        email,
+        options: {
+          data: {
+            full_name: fullName
+          }
+        }
+      });
 
-      if (isSignUp) {
-        if (!fullName) {
-          setError("Full Name is required for registration.");
-          setLoading(false);
-          return;
-        }
-        if (existingUser) {
-          setError("An account with this email already exists.");
-          setLoading(false);
-          return;
-        }
-      } else {
-        if (!existingUser) {
-          setError("Account not found. Please sign up first.");
-          setLoading(false);
-          return;
-        }
-      }
-
-      setLoading(false);
+      if (error) throw error;
+      
       setIsVerifying(true);
-    }, 1500);
+    } catch (err: any) {
+      setError(err.message || 'Failed to send verification code.');
+    } finally {
+      setLoading(false);
+    }
   };
 
-  const handleVerifyOTP = (e: React.FormEvent) => {
+  const handleVerifyOTP = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
+    setError(null);
     
-    // In a real app, this would verify with backend
-    // For demo, any 6-digit code works, or we can check for '123456'
-    setTimeout(() => {
-      const existingUser = allProfiles.find(p => p.email.toLowerCase() === email.toLowerCase());
-      login(email, fullName || existingUser?.full_name || 'Verified User');
+    const token = otp.join('');
+    
+    try {
+      const { data, error } = await supabase.auth.verifyOtp({
+        email,
+        token,
+        type: 'email'
+      });
+
+      if (error) throw error;
+      
+      login(email, data.user?.user_metadata?.full_name || fullName || 'Verified User');
       navigate('/');
-    }, 1500);
+    } catch (err: any) {
+      setError(err.message || 'Invalid verification code.');
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleSocialLogin = async (provider: 'google' | 'apple') => {
@@ -132,6 +134,20 @@ export default function Login() {
                 We've sent a 6-digit code to <span className="font-bold text-slate-900">{email}</span>
               </p>
             </div>
+
+            <AnimatePresence mode="wait">
+              {error && (
+                <motion.div 
+                  initial={{ opacity: 0, height: 0 }}
+                  animate={{ opacity: 1, height: 'auto' }}
+                  exit={{ opacity: 0, height: 0 }}
+                  className="p-4 bg-red-50 text-red-700 text-sm rounded-2xl flex items-start gap-3 border border-red-100 mb-6"
+                >
+                  <AlertCircle className="w-5 h-5 shrink-0" />
+                  <span className="font-medium">{error}</span>
+                </motion.div>
+              )}
+            </AnimatePresence>
 
             <form onSubmit={handleVerifyOTP} className="space-y-8">
               <div className="flex justify-between gap-2">
@@ -253,21 +269,6 @@ export default function Login() {
               </label>
             </div>
 
-            <div className="relative">
-              <input
-                id="password"
-                type="password"
-                required
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                className="peer w-full px-5 py-4 bg-slate-50 border-2 border-slate-50 rounded-2xl focus:border-emerald-500 focus:bg-white focus:outline-none transition-all placeholder-transparent"
-                placeholder="Password"
-              />
-              <label htmlFor="password" className="absolute left-5 top-4 text-slate-400 text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:top-4 peer-focus:-top-2.5 peer-focus:left-4 peer-focus:text-xs peer-focus:text-emerald-600 peer-focus:bg-white peer-focus:px-1 font-bold pointer-events-none">
-                Password
-              </label>
-            </div>
-
             <button
               type="submit"
               disabled={loading}
@@ -276,7 +277,7 @@ export default function Login() {
               {loading ? (
                 <div className="h-5 w-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
               ) : (
-                <>{isSignUp ? 'Create Account' : 'Sign In'} <ArrowLeft className="rotate-180" size={18} /></>
+                <>{isSignUp ? 'Create Account' : 'Send OTP Code'} <ArrowLeft className="rotate-180" size={18} /></>
               )}
             </button>
           </form>
