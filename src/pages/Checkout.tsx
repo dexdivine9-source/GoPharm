@@ -16,6 +16,8 @@ import {
   Info,
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { useSupabase } from '../lib/mock-db';
+import { initializeMonnifyPayment } from '../lib/monnify';
 
 type PaymentMethod = 'pay_now' | 'pod' | null;
 
@@ -37,14 +39,42 @@ export default function Checkout() {
   const [selected, setSelected] = useState<PaymentMethod>(null);
   const [confirming, setConfirming] = useState(false);
 
+  const { currentUser } = useSupabase();
+
   const handleConfirm = () => {
     if (!selected) return;
     setConfirming(true);
-    setTimeout(() => {
-      navigate('/fulfillment', {
-        state: { pharmacyName, medicineName, pharmacyLocation, paymentMethod: selected },
+
+    if (selected === 'pay_now') {
+      initializeMonnifyPayment({
+        amount: 4500, // Total from summary
+        customerFullName: currentUser?.full_name || 'Guest User',
+        customerEmail: currentUser?.email || 'guest@example.com',
+        customerMobileNumber: '08000000000',
+        paymentDescription: `Payment for ${medicineName}`,
+        onComplete: (response) => {
+          // Both SUCCESS and PAID might be returned depending on the payment mode
+          if (response.status === 'SUCCESS' || response.paymentStatus === 'PAID') {
+            navigate('/fulfillment', {
+              state: { pharmacyName, medicineName, pharmacyLocation, paymentMethod: selected, reference: response.transactionReference },
+            });
+          } else {
+            setConfirming(false);
+            alert('Payment was not successful. Please try again.');
+          }
+        },
+        onClose: (data) => {
+          setConfirming(false);
+        }
       });
-    }, 800);
+    } else {
+      // POD or other bypassed method
+      setTimeout(() => {
+        navigate('/fulfillment', {
+          state: { pharmacyName, medicineName, pharmacyLocation, paymentMethod: selected },
+        });
+      }, 800);
+    }
   };
 
   return (
