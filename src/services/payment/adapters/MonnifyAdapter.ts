@@ -1,4 +1,4 @@
-import { IPaymentGateway, PaymentIntentRequest, PaymentIntentResponse, PaymentStatus, WebhookEvent } from './types';
+import { IPaymentGateway, PaymentIntentRequest, PaymentIntentResponse, PaymentStatus, WebhookEvent } from '../types';
 import crypto from 'crypto';
 
 export class MonnifyAdapter implements IPaymentGateway {

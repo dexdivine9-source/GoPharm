@@ -192,7 +192,7 @@ function NoCameraFallback({
 
 // ─── Error Boundary ───────────────────────────────────────────────────────────
 interface EBState { hasError: boolean; }
-class CameraErrorBoundary extends Component<
+class CameraErrorBoundary extends React.Component<
   { children: React.ReactNode; fallback: React.ReactNode },
   EBState
 > {
@@ -200,7 +200,7 @@ class CameraErrorBoundary extends Component<
   static getDerivedStateFromError() { return { hasError: true }; }
   componentDidCatch(error: Error) { console.warn('[CameraView] caught:', error.message); }
   render() {
-    return this.state.hasError ? this.props.fallback : this.props.children;
+    return this.state.hasError ? (this as any).props.fallback : (this as any).props.children;
   }
 }
 
