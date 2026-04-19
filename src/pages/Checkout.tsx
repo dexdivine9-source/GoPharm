@@ -17,7 +17,7 @@ import {
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useSupabase } from '../lib/mock-db';
-import { initializeMonnifyPayment } from '../lib/monnify';
+// Removed: window.MonnifySDK since we now handle it backend-side
 
 type PaymentMethod = 'pay_now' | 'pod' | null;
 
@@ -38,35 +38,40 @@ export default function Checkout() {
 
   const [selected, setSelected] = useState<PaymentMethod>(null);
   const [confirming, setConfirming] = useState(false);
+  const [paymentIntent, setPaymentIntent] = useState<any>(null);
 
   const { currentUser } = useSupabase();
 
-  const handleConfirm = () => {
+  const handleConfirm = async () => {
     if (!selected) return;
     setConfirming(true);
 
     if (selected === 'pay_now') {
-      initializeMonnifyPayment({
-        amount: 4500, // Total from summary
-        customerFullName: currentUser?.full_name || 'Guest User',
-        customerEmail: currentUser?.email || 'guest@example.com',
-        customerMobileNumber: '08000000000',
-        paymentDescription: `Payment for ${medicineName}`,
-        onComplete: (response) => {
-          // Both SUCCESS and PAID might be returned depending on the payment mode
-          if (response.status === 'SUCCESS' || response.paymentStatus === 'PAID') {
-            navigate('/fulfillment', {
-              state: { pharmacyName, medicineName, pharmacyLocation, paymentMethod: selected, reference: response.transactionReference },
-            });
-          } else {
-            setConfirming(false);
-            alert('Payment was not successful. Please try again.');
-          }
-        },
-        onClose: (data) => {
-          setConfirming(false);
+      try {
+        const response = await fetch('/api/payment/initiate', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            orderId: `ORD_${Date.now()}`,
+            amount: 4500,
+            customerName: currentUser?.full_name || 'Guest User',
+            customerEmail: currentUser?.email || 'guest@example.com',
+            method: 'BANK_TRANSFER'
+          })
+        });
+        const data = await response.json();
+        
+        if (data.virtualAccount) {
+          setPaymentIntent(data);
+        } else if (data.checkoutUrl) {
+          // Fallback to Paystack
+          window.location.href = data.checkoutUrl;
         }
-      });
+        setConfirming(false);
+      } catch (err) {
+        setConfirming(false);
+        alert('Payment initialization failed. Please try again.');
+      }
     } else {
       // POD or other bypassed method
       setTimeout(() => {
@@ -119,12 +124,50 @@ export default function Checkout() {
         <div className="grid gap-8 lg:grid-cols-5">
           {/* Left: Payment Selection */}
           <div className="lg:col-span-3 space-y-6">
-            <motion.div
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2 }}
-            >
-              <h2 className="text-base font-bold text-slate-900 mb-4">Choose Payment Method</h2>
+            {paymentIntent && paymentIntent.virtualAccount ? (
+              <motion.div
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                className="rounded-3xl border-2 border-emerald-500 bg-emerald-50 p-6 shadow-lg"
+              >
+                <h2 className="text-xl font-bold text-slate-900 mb-2">Transfer to Virtual Account</h2>
+                <p className="text-sm text-slate-600 mb-6">Please transfer exactly <span className="font-bold">₦4,500</span> to the account below. Your order will be confirmed instantly.</p>
+                
+                <div className="space-y-4 bg-white p-5 rounded-2xl border border-emerald-100">
+                  <div>
+                    <p className="text-xs font-bold uppercase tracking-widest text-slate-400">Bank Name</p>
+                    <p className="font-bold text-lg text-slate-900">{paymentIntent.virtualAccount.bankName}</p>
+                  </div>
+                  <div>
+                    <p className="text-xs font-bold uppercase tracking-widest text-slate-400">Account Number</p>
+                    <p className="font-black text-3xl tracking-wide text-emerald-600">{paymentIntent.virtualAccount.accountNumber}</p>
+                  </div>
+                  <div>
+                    <p className="text-xs font-bold uppercase tracking-widest text-slate-400">Account Name</p>
+                    <p className="font-bold text-slate-900">{paymentIntent.virtualAccount.accountName}</p>
+                  </div>
+                </div>
+
+                <div className="mt-6 flex items-center gap-3">
+                  <div className="h-5 w-5 animate-spin rounded-full border-2 border-emerald-600 border-t-transparent" />
+                  <span className="text-sm font-bold text-emerald-800">Awaiting transfer... Do not close page.</span>
+                </div>
+                
+                <button 
+                   onClick={() => navigate('/fulfillment', { state: { pharmacyName, medicineName, pharmacyLocation, paymentMethod: 'BANK_TRANSFER' } })} 
+                   className="mt-5 text-xs text-slate-500 hover:text-slate-800 underline"
+                >
+                  Debug: Bypass and Complete
+                </button>
+              </motion.div>
+            ) : (
+             <div className="space-y-6">
+              <motion.div
+                initial={{ opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.2 }}
+              >
+                <h2 className="text-base font-bold text-slate-900 mb-4">Choose Payment Method</h2>
               <div className="space-y-4">
 
                 {/* Pay Now Card */}
@@ -257,6 +300,8 @@ export default function Checkout() {
                 <p className="mt-2 text-center text-xs text-slate-400">Select a payment method to continue</p>
               )}
             </motion.div>
+           </div>
+          )}
           </div>
 
           {/* Right: Order Summary */}
